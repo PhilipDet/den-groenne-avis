@@ -1,5 +1,5 @@
 {
-    "name": "nextjs-prisma-boilerplate",
+    "name": "den-groenne-avis",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -7,10 +7,11 @@
         "build": "prisma generate && next build --turbopack",
         "start": "next start",
         "lint": "eslint .",
-        "push": "prisma db push",
+        "init": "prisma migrate dev && prisma db seed",
+        "migrate": "prisma migrate dev",
         "generate": "prisma generate",
-        "seed": "prisma db seed",
-        "db-create": "prisma db push && prisma generate && prisma db seed"
+        "push": "prisma db push && prisma db seed",
+        "seed": "prisma db seed"
     },
     "dependencies": {
         "@prisma/client": "^6.14.0",

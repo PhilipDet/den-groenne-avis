@@ -1,7 +1,10 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { generateToken } from "@/lib/auth";
 import { handlePrismaError } from "@/lib/utils";
+import { Lasso } from "lucide-react";
 
 export const UserService = {
     async getUser(id: number) {
@@ -14,12 +17,32 @@ export const UserService = {
 
         return {
             id: result.id,
+            firstname: result.firstname,
+            lastname: result.lastname,
+            address: result.address,
+            zipcode: result.zipcode,
+            city: result.city,
             email: result.email,
-            isActive: result.isActive,
         };
     },
 
-    async createUser({ email, password }: { email: string; password: string }) {
+    async createUser({
+        email,
+        password,
+        firstname,
+        lastname,
+        address,
+        city,
+        zipcode,
+    }: {
+        email: string;
+        password: string;
+        firstname: string;
+        lastname: string;
+        address: string;
+        city: string;
+        zipcode: number;
+    }) {
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -31,6 +54,11 @@ export const UserService = {
                 data: {
                     email,
                     password: hashedPassword,
+                    firstname,
+                    lastname,
+                    address,
+                    city,
+                    zipcode,
                     refreshToken: refreshToken,
                 },
             });
@@ -41,6 +69,11 @@ export const UserService = {
                 user: {
                     id: newUser.id,
                     email: newUser.email,
+                    firstname: newUser.firstname,
+                    lastname: newUser.lastname,
+                    address: newUser.address,
+                    city: newUser.city,
+                    zipcode: newUser.zipcode,
                 },
             };
         } catch (error: unknown) {

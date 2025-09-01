@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 import { Providers } from "./provider";
 import { LayoutWrapper } from "@/components/layoutWrapper";
@@ -18,6 +19,7 @@ const RootLayout = ({
                         <Hr className="mb-6 mt-12" />
                         {children}
                     </LayoutWrapper>
+                    <Footer />
                 </Providers>
             </body>
         </html>

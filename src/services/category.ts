@@ -2,12 +2,27 @@
 
 import { prisma } from "@/lib/prisma";
 
-export async function getCategories({ random = false }: { random?: boolean }) {
+const categoryImages = [
+    "camping",
+    "cykler",
+    "elektronik",
+    "have-og-byg",
+    "hobby",
+    "toej-og-mode",
+];
+
+export async function getCategories(random: boolean = false) {
     let result;
+    console.log("RANDOM:", random);
+
     if (random) {
         result = await prisma.category.findMany({
             orderBy: { id: "asc" },
-            take: 5,
+            where: {
+                slug: {
+                    in: categoryImages,
+                },
+            },
         });
     } else {
         result = await prisma.category.findMany();

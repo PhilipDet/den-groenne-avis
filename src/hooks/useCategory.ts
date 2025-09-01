@@ -10,7 +10,7 @@ export const useCategories = (random: boolean = false) => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            const categoriesData = await getCategories({ random });
+            const categoriesData = await getCategories(random);
             if (categoriesData) {
                 setCategories(categoriesData);
             }

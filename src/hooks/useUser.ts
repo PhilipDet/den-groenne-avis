@@ -3,7 +3,7 @@ import { UserService } from "@/services/user";
 import { UserType } from "@/lib/types";
 
 export const useUser = (userId: number) => {
-    const [user, setUser] = useState<UserType>(null);
+    const [user, setUser] = useState<UserType | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

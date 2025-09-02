@@ -41,6 +41,10 @@
         @apply text-sm text-foreground;
     }
 
+    .footer-container {
+        @apply flex flex-col gap-6;
+    }
+
     .heading-1 {
         @apply text-3xl font-bold text-foreground;
     }

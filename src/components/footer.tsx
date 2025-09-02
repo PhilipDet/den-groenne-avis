@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 export const Footer = () => {
     const handleNewsletterSignup = () => {
@@ -10,9 +10,9 @@ export const Footer = () => {
     return (
         <footer className="w-full bg-green-tea text-white py-8 px-16">
             <ul className="flex gap-28">
-                <li>
+                <li className="footer-container">
                     <span className="footer-header">Nyhedsbrev</span>
-                    <ul className="footer-paragraph">
+                    <ul className="footer-paragraph flex flex-col gap-2">
                         <li>
                             Vil du være med på den grønne front? Tilmeld dig
                             vores nyhedsbrev og få de seneste klima opdateringer
@@ -30,7 +30,7 @@ export const Footer = () => {
                                 />
                                 <button
                                     type="submit"
-                                    className="bg-dark-green text-white px-4"
+                                    className="cursor-pointer bg-dark-green text-white px-4"
                                 >
                                     Tilmeld
                                 </button>
@@ -38,30 +38,32 @@ export const Footer = () => {
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li className="footer-container">
                     <span className="footer-header">Kontakt</span>
-                    <ul className="footer-paragraph">
+                    <ul className="footer-paragraph min-w-32">
                         <li>Redningen 32</li>
                         <li>2210 Vinterby Øster</li>
                         <li>+45 88229422</li>
                         <li>dga@info.dk</li>
                     </ul>
                 </li>
-                <li>
+                <li className="footer-container">
                     <span className="footer-header">FN's Verdensmål</span>
-                    <ul className="footer-paragraph">
+                    <ul className="footer-paragraph flex flex-col gap-5">
                         <li>
                             Vi støtter på organisatorisk plan op om FN´s
                             verdensmål og har derfor besluttet at en del af
                             overskuddet går direkte til verdensmål nr. 13;
                             Klimahandling
                         </li>
-                        <Link
-                            href="https://www.verdensmaalene.dk/ikoner"
-                            target="_blank"
-                        >
-                            Læs mere om verdensmålene her
-                        </Link>
+                        <li className="text-white hover:underline">
+                            <Link
+                                href="https://www.verdensmaalene.dk/ikoner"
+                                target="_blank"
+                            >
+                                Læs mere om verdensmålene her
+                            </Link>
+                        </li>
                     </ul>
                 </li>
             </ul>

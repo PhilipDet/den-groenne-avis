@@ -2,7 +2,13 @@
 
 import { prisma } from "@/lib/prisma";
 
-export async function getProducts({ random = false }: { random?: boolean }) {
+export async function getProducts({
+    random = false,
+    category,
+}: {
+    random?: boolean;
+    category?: string | null;
+}) {
     let result;
     if (random) {
         const allProducts = await prisma.product.findMany({
@@ -15,6 +21,7 @@ export async function getProducts({ random = false }: { random?: boolean }) {
         result = allProducts.sort(() => Math.random() - 0.5).slice(0, 6);
     } else {
         result = await prisma.product.findMany({
+            where: category ? { category: { slug: category } } : {},
             include: {
                 category: true,
                 user: true,

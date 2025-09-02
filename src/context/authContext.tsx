@@ -6,7 +6,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<UserType>(null);
+    const [user, setUser] = useState<UserType | null>(null);
 
     useEffect(() => {
         const savedUser = localStorage.getItem("user");

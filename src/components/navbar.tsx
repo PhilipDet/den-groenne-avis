@@ -4,10 +4,10 @@ import { MailWarning, Info, UserRound } from "lucide-react";
 import Logo from "@/public/Logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { useCategories } from "@/hooks/useCategory";
+import { useCategoryContext } from "@/context/categoryContext";
 
 export const Navbar = () => {
-    const { categories, loading } = useCategories();
+    const { categories, loadingCategoryContext } = useCategoryContext();
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = categories.find(
@@ -28,7 +28,7 @@ export const Navbar = () => {
                         name="category"
                         className="h-full w-[200px] border-2 border-green-tea bg-muted-background px-3.5"
                     >
-                        {loading ? (
+                        {loadingCategoryContext ? (
                             <option>Henter...</option>
                         ) : (
                             <>

@@ -16,7 +16,7 @@ const RootLayout = ({
                 <Providers>
                     <Navbar />
                     <LayoutWrapper>
-                        <Hr className="mb-6 mt-12" />
+                        <Hr className="mb-6" />
                         {children}
                     </LayoutWrapper>
                     <Footer />

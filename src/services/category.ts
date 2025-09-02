@@ -13,8 +13,6 @@ const categoryImages = [
 
 export async function getCategories(random: boolean = false) {
     let result;
-    console.log("RANDOM:", random);
-
     if (random) {
         result = await prisma.category.findMany({
             orderBy: { id: "asc" },

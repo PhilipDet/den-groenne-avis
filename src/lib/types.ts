@@ -14,6 +14,13 @@ export type AuthContextType = {
     logout: () => void;
 };
 
+export type CategoryContextType = {
+    categories: CategoryType[];
+    loadingCategoryContext: boolean;
+    selectedCategory: string | null;
+    setSelectedCategory: (category: string | null) => void;
+};
+
 export type CategoryType = {
     id: number;
     name: string;

@@ -3,7 +3,7 @@ import BannerImage3 from "@/public/images/banner_image3.jpg";
 
 export const DonationBanners = () => {
     return (
-        <section className="flex gap-10">
+        <section className="mt-6 w-full flex gap-10">
             <article
                 className="w-full relative bg-cover bg-center flex flex-col gap-2 py-4 px-9"
                 style={{

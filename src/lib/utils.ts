@@ -6,21 +6,6 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const validation = (type: string, text: string) => {
-    switch (type) {
-        case "name":
-            return text.length > 0;
-        case "email":
-            return /\S+@\S+\.\S+/.test(text);
-        case "password":
-            return text.length >= 6;
-        case "message":
-            return text.length > 0;
-        default:
-            return false;
-    }
-};
-
 export const formatPrice = (price: number) => {
     if (price === null) return "Ukendt pris";
 
@@ -64,4 +49,11 @@ export const handlePrismaError = (
     error: unknown
 ): Prisma.PrismaClientKnownRequestError | null => {
     return error instanceof Prisma.PrismaClientKnownRequestError ? error : null;
+};
+
+export const handleError = (error: unknown): string => {
+    if (error instanceof Error) {
+        return error.message;
+    }
+    return "Der opstod en fejl";
 };

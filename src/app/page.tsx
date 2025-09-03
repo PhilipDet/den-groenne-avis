@@ -14,7 +14,7 @@ const Home = () => {
             <MainBanner />
             <Hr className="mb-4 mt-14" />
             <PopularCategories />
-            <Hr className="my-4" />
+            <Hr className="mt-4" />
             <DonationBanners />
         </main>
     );

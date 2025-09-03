@@ -42,7 +42,7 @@ export const formatDate = (date: string) => {
     const formattedHours = hours % 12 || 12;
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    return `${day}. ${months[month]} ${year} kl. ${formattedHours}:${formattedMinutes}`;
+    return `d. ${day}/${months[month]} kl. ${formattedHours}:${formattedMinutes}`;
 };
 
 export const handlePrismaError = (

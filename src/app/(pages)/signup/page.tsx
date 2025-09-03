@@ -170,10 +170,10 @@ const SignupPage = () => {
                 </ul>
 
                 {errorMessage && (
-                    <p className="text-red-500 text-xl">{errorMessage}</p>
+                    <p className="text-burgundy text-xl">{errorMessage}</p>
                 )}
                 {successMessage && (
-                    <p className="text-green-500 text-xl">{successMessage}</p>
+                    <p className="text-green-tea text-xl">{successMessage}</p>
                 )}
             </form>
 

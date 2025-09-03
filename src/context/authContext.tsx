@@ -7,26 +7,58 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<UserType | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const fetchUser = async () => {
+        try {
+            const res = await fetch("/api/me", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    credentials: "include",
+                },
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "Failed to fetch user");
+            }
+
+            setUser(data.user);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = async () => {
+        try {
+            const res = await fetch("/api/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    credentials: "include",
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to logout");
+            }
+
+            setUser(null);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
-        }
+        fetchUser();
     }, []);
 
-    const login = (userData: UserType) => {
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
-    };
-
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem("user");
-    };
-
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, loadingUser: loading, logout }}>
             {children}
         </AuthContext.Provider>
     );

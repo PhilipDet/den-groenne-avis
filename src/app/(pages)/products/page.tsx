@@ -4,20 +4,20 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ProductItem } from "@/components/productItem";
 import { CategoryList } from "@/components/categoryList";
 
-export default function ProductPage() {
+const ProductPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const category = searchParams.get("category") || null;
     const page = Number(searchParams.get("page")) || 1;
 
-    const { products, loading } = useProducts(category);
+    const { products, loadingProduct } = useProducts(category);
 
     const productsPerPage = 9;
 
     const totalPages = Math.ceil(products.length / productsPerPage);
 
-    if (loading) return <p>Henter produkter...</p>;
+    if (loadingProduct) return <p>Henter produkter...</p>;
 
     const indexOfLastProduct = page * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -66,4 +66,6 @@ export default function ProductPage() {
             <CategoryList activeCategory={category} goToPage={goToPage} />
         </>
     );
-}
+};
+
+export default ProductPage;

@@ -9,8 +9,8 @@ export type UserType = {
 };
 
 export type AuthContextType = {
-    user: UserType;
-    login: (userData: UserType) => void;
+    user: UserType | null;
+    loadingUser: boolean;
     logout: () => void;
 };
 
@@ -35,5 +35,14 @@ export type ProductType = {
     price: number;
     slug: string;
     category: CategoryType;
+    user: UserType;
+    comments?: CommentType[];
+};
+
+export type CommentType = {
+    id: number;
+    comment: string;
+    userId: number;
+    productId: number;
     user: UserType;
 };

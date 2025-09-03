@@ -2,13 +2,42 @@
 
 import { prisma } from "@/lib/prisma";
 
-export async function getProducts({
+export const getProduct = async (id: number) => {
+    const product = await prisma.product.findUnique({
+        where: { id },
+        include: {
+            category: true,
+            user: true,
+            Comment: {
+                include: {
+                    user: true,
+                },
+            },
+        },
+    });
+
+    if (!product) return null;
+
+    return {
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        description: product.description,
+        price: product.price.toNumber(),
+        slug: product.slug,
+        category: product.category,
+        user: product.user,
+        comments: product.Comment,
+    };
+};
+
+export const getProducts = async ({
     random = false,
     category,
 }: {
     random?: boolean;
     category?: string | null;
-}) {
+}) => {
     let result;
     if (random) {
         const allProducts = await prisma.product.findMany({
@@ -41,4 +70,4 @@ export async function getProducts({
         category: product.category,
         user: product.user,
     }));
-}
+};

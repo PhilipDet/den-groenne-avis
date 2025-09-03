@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const PickedProducts = () => {
-    const { products, loading } = useProducts(true);
+    const { products, loadingProduct } = useProducts(null, true);
 
     return (
         <>
             <h2 className="heading-2">Udvalgte Produkter</h2>
             <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-                {loading ? (
+                {loadingProduct ? (
                     <div>Loading...</div>
                 ) : (
                     products.map((product) => (
@@ -18,7 +18,7 @@ export const PickedProducts = () => {
                             key={product.id}
                             className="group relative overflow-hidden min-w-[150px]"
                         >
-                            <Link href={`/product/${product.slug}`}>
+                            <Link href={`/product?slug=${product.slug}`}>
                                 <Image
                                     className="w-full aspect-square object-cover"
                                     src={

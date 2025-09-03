@@ -1,8 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getProducts } from "@/services/product";
+import { getProducts, getProduct } from "@/services/product";
 import { ProductType } from "@/lib/types";
+
+export const useProduct = (id: number) => {
+    const [product, setProduct] = useState<ProductType | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            setLoading(true);
+            const productData = await getProduct(id);
+            if (productData) {
+                setProduct(productData);
+            }
+            setLoading(false);
+        };
+
+        fetchProduct();
+    }, [id]);
+
+    return { product, loading };
+};
 
 export const useProducts = (
     category: string | null = null,
@@ -27,5 +47,5 @@ export const useProducts = (
         fetchProducts();
     }, [category, random]);
 
-    return { products, loading };
+    return { products, loadingProduct: loading };
 };

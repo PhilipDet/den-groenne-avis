@@ -18,7 +18,7 @@ export const PopularCategories = () => {
                             key={category.id}
                             className="group relative overflow-hidden min-w-[150px]"
                         >
-                            <Link href={`/products/${category.slug}`}>
+                            <Link href={`/products?category=${category.slug}`}>
                                 <Image
                                     className="w-full aspect-square object-cover"
                                     src={

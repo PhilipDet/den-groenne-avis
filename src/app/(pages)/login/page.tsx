@@ -90,12 +90,12 @@ const LoginPage = () => {
                 <ul className="flex justify-between">
                     <li>
                         {errorMessage && (
-                            <p className="text-red-500 text-xl">
+                            <p className="text-burgundy text-xl">
                                 {errorMessage}
                             </p>
                         )}
                         {successMessage && (
-                            <p className="text-green-500 text-xl">
+                            <p className="text-green-tea text-xl">
                                 {successMessage}
                             </p>
                         )}

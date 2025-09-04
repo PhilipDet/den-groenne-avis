@@ -38,7 +38,7 @@ export type ProductType = {
     price: number;
     slug: string;
     category: CategoryType;
-    user: UserType;
+    user?: UserType;
     comments?: CommentType[];
 };
 

@@ -11,6 +11,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (pathname === "/dashboard/ads") {
             setIsOnAdsPage(true);
+        } else {
+            setIsOnAdsPage(false);
         }
     }, [pathname]);
 

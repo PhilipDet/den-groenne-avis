@@ -2,25 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 
-const categoryImages = [
-    "camping",
-    "cykler",
-    "elektronik",
-    "have-og-byg",
-    "hobby",
-    "toej-og-mode",
-];
-
 export async function getCategories(random: boolean = false) {
     let result;
     if (random) {
         result = await prisma.category.findMany({
             orderBy: { id: "asc" },
-            where: {
-                slug: {
-                    in: categoryImages,
-                },
-            },
+            take: 6,
         });
     } else {
         result = await prisma.category.findMany();
@@ -31,5 +18,6 @@ export async function getCategories(random: boolean = false) {
         id: category.id,
         name: category.name,
         slug: category.slug,
+        image: category.image,
     }));
 }

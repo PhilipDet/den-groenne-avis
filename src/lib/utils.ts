@@ -35,7 +35,6 @@ const months = [
 export const formatDate = (date: string) => {
     const hours = new Date(date).getHours();
     const minutes = new Date(date).getMinutes();
-    const year = new Date(date).getFullYear();
     const month = new Date(date).getMonth(); // Months are zero-based
     const day = new Date(date).getDate();
 

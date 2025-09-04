@@ -28,18 +28,6 @@ const LoginPage = () => {
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const emailError = validation.email(email);
-        const passwordError = validation.password(password);
-
-        const errors = [emailError, passwordError].filter(
-            (error) => error !== true
-        );
-
-        if (errors.length > 0) {
-            setErrorMessage(errors[0]);
-            return;
-        }
-
         try {
             const response = await fetch("/api/login", {
                 method: "POST",

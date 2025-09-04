@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserService } from "@/services/user";
+import { getUser } from "@/services/user";
 import { UserType } from "@/lib/types";
 
 export const useUser = (userId: number) => {
@@ -8,7 +8,7 @@ export const useUser = (userId: number) => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const userData = await UserService.getUser(userId);
+            const userData = await getUser(userId);
             setUser(userData);
             setLoading(false);
         };

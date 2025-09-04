@@ -51,7 +51,7 @@ export const Footer = () => {
                     <span className="footer-header">FN's Verdensmål</span>
                     <ul className="footer-paragraph flex flex-col gap-5">
                         <li>
-                            Vi støtter på organisatorisk plan op om FN´s
+                            Vi støtter på organisatorisk plan op om FN's
                             verdensmål og har derfor besluttet at en del af
                             overskuddet går direkte til verdensmål nr. 13;
                             Klimahandling

@@ -18,7 +18,7 @@ export const useCategories = (random: boolean = false) => {
         };
 
         fetchCategories();
-    }, []);
+    }, [random]);
 
     return { categories, loading };
 };

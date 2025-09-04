@@ -23,7 +23,7 @@ export const PopularCategories = () => {
                                     className="w-full aspect-square object-cover"
                                     src={
                                         category.slug
-                                            ? `/images/categories/${category.slug}.jpg`
+                                            ? category.image
                                             : "./images/product_placeholder.png"
                                     }
                                     alt={category.name}

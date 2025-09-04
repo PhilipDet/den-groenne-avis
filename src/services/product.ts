@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { handleError } from "@/lib/utils";
 
 export const getProduct = async (id: number) => {
     const product = await prisma.product.findUnique({
@@ -106,6 +107,42 @@ export const createProduct = async ({
 
         return product;
     } catch (error) {
-        throw new Error("Fejl ved oprettelse af annonce");
+        throw new Error(handleError(error));
+    }
+};
+
+export const getProductsByUserId = async (userId: number) => {
+    const products = await prisma.product.findMany({
+        where: { userId },
+        include: {
+            category: true,
+            user: true,
+        },
+    });
+    if (!products) return null;
+
+    return products.map((product) => ({
+        id: product.id,
+        name: product.name,
+        image: product.image,
+        description: product.description,
+        price: product.price.toNumber(),
+        slug: product.slug,
+        category: product.category,
+    }));
+};
+
+export const deleteProduct = async (productId: number) => {
+    try {
+        await prisma.comment.deleteMany({
+            where: { productId },
+        });
+        await prisma.product.delete({
+            where: { id: productId },
+        });
+
+        return true;
+    } catch (error) {
+        throw new Error(handleError(error));
     }
 };

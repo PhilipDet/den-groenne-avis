@@ -13,8 +13,7 @@ import { CategoryList } from "@/components/categoryList";
 
 const ProductPage = () => {
     const searchParams = useSearchParams();
-    const productId = Number(searchParams.get("id")) || null;
-    if (!productId) return <p>Ingen produkt ID angivet</p>;
+    const productId = Number(searchParams.get("id"));
 
     const { user, loadingUser } = useAuth();
     const { product, loading } = useProduct(productId);

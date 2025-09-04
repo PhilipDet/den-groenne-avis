@@ -9,4 +9,10 @@ export const validation = {
     address: (value: string) => value.length > 0 || "Adresse er påkrævet",
     city: (value: string) => value.length > 0 || "By er påkrævet",
     zipcode: (value: string) => /^\d{3,4}$/.test(value) || "Ugyldig postnummer",
+
+    title: (value: string) => value.length > 0 || "Titel er påkrævet",
+    description: (value: string) =>
+        value.length > 0 || "Beskrivelse er påkrævet",
+    url: (value: string) => /\S+\.\S+/.test(value) || "Ugyldig URL",
+    price: (value: number) => value >= 0 || "Pris skal være 0 eller højere",
 };

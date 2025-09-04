@@ -63,7 +63,7 @@ const ProductPage = () => {
                     </div>
                 )}
             </main>
-            <CategoryList activeCategory={category} goToPage={goToPage} />
+            <CategoryList activeCategory={category} />
         </>
     );
 };

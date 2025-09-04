@@ -4,16 +4,16 @@ import { useCategories } from "@/hooks/useCategory";
 
 export const CategoryList = ({
     activeCategory,
-    goToPage,
 }: {
-    activeCategory: string | null;
-    goToPage: (newPage: number, category?: string | null) => void;
+    activeCategory?: string | null;
 }) => {
+    const router = useRouter();
     const { categories, loading } = useCategories();
 
     const handleCategorySelect = (category: string | null) => {
         if (category === activeCategory) return;
-        goToPage(1, category);
+
+        router.push(`/products?category=${category || ""}&page=1`);
     };
 
     return (

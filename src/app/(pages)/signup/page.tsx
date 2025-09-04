@@ -6,12 +6,14 @@ import { validation } from "@/lib/validation";
 import { useEffect, useState } from "react";
 import { Hr } from "@/components/hr";
 import { DonationBanners } from "@/components/donationBanners";
-import { createUser } from "@/services/user";
 import { handleError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/authContext";
 
 const SignupPage = () => {
     const router = useRouter();
+    const { user, loadingUser } = useAuth();
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [firstName, setFirstName] = useState<string>("");
@@ -22,6 +24,12 @@ const SignupPage = () => {
     const [terms, setTerms] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [successMessage, setSuccessMessage] = useState<string>("");
+
+    useEffect(() => {
+        if (!loadingUser && user) {
+            router.push("/dashboard");
+        }
+    }, [user, loadingUser, router]);
 
     const handleSignup = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -88,98 +96,107 @@ const SignupPage = () => {
     };
 
     return (
-        <main className="flex flex-col items-center">
-            <form
-                onSubmit={handleSignup}
-                onChange={() => {
-                    setErrorMessage("");
-                }}
-                className="max-w-[570px] w-full flex flex-col gap-8"
-            >
-                <Input
-                    title="Email"
-                    name="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                    title="Password"
-                    name="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <Input
-                    title="Fornavn"
-                    name="firstName"
-                    onChange={(e) => setFirstName(e.target.value)}
-                />
-                <Input
-                    title="Efternavn"
-                    name="lastName"
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-                <Input
-                    title="Adresse"
-                    name="address"
-                    onChange={(e) => setAddress(e.target.value)}
-                />
-                <Input
-                    title="By"
-                    name="city"
-                    onChange={(e) => setCity(e.target.value)}
-                />
-                <Input
-                    title="Postnummer"
-                    name="zipcode"
-                    onChange={(e) => setZipcode(e.target.value)}
-                />
+        !user &&
+        !loadingUser && (
+            <main className="flex flex-col items-center">
+                <form
+                    onSubmit={handleSignup}
+                    onChange={() => {
+                        setErrorMessage("");
+                    }}
+                    className="max-w-[570px] w-full flex flex-col gap-8"
+                >
+                    <Input
+                        title="Email"
+                        name="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Input
+                        title="Password"
+                        name="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                    />
+                    <Input
+                        title="Fornavn"
+                        name="firstName"
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <Input
+                        title="Efternavn"
+                        name="lastName"
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                    <Input
+                        title="Adresse"
+                        name="address"
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                    <Input
+                        title="By"
+                        name="city"
+                        onChange={(e) => setCity(e.target.value)}
+                    />
+                    <Input
+                        title="Postnummer"
+                        name="zipcode"
+                        onChange={(e) => setZipcode(e.target.value)}
+                    />
 
-                <span>
-                    Har du allerede en konto hos os? Klik{" "}
-                    <Link href="/login" className="font-bold underline">
-                        her
-                    </Link>{" "}
-                    for at vende tilbage til login
-                </span>
+                    <span>
+                        Har du allerede en konto hos os? Klik{" "}
+                        <Link href="/login" className="font-bold underline">
+                            her
+                        </Link>{" "}
+                        for at vende tilbage til login
+                    </span>
 
-                <ul className="flex justify-between">
-                    <li>
-                        <label
-                            htmlFor="terms"
-                            className="flex items-center gap-5"
-                        >
-                            <div className="relative min-w-6 h-6">
-                                <input
-                                    type="checkbox"
-                                    name="terms"
-                                    id="terms"
-                                    checked={terms}
-                                    onChange={(e) => setTerms(e.target.checked)}
-                                    className="peer opacity-0 w-6 h-6 absolute cursor-pointer"
-                                />
-                                <div className="absolute inset-0 bg-background transition-colors border-3 border-dark-green peer-checked:bg-dark-green"></div>
-                            </div>
-                            Jeg har læst og forstået de gældende betingelser for
-                            oprettelse af kundekonto og brug af denne side
-                        </label>
-                    </li>
+                    <ul className="flex justify-between">
+                        <li>
+                            <label
+                                htmlFor="terms"
+                                className="flex items-center gap-5"
+                            >
+                                <div className="relative min-w-6 h-6">
+                                    <input
+                                        type="checkbox"
+                                        name="terms"
+                                        id="terms"
+                                        checked={terms}
+                                        onChange={(e) =>
+                                            setTerms(e.target.checked)
+                                        }
+                                        className="peer opacity-0 w-6 h-6 absolute cursor-pointer"
+                                    />
+                                    <div className="absolute inset-0 bg-background transition-colors border-3 border-dark-green peer-checked:bg-dark-green"></div>
+                                </div>
+                                Jeg har læst og forstået de gældende betingelser
+                                for oprettelse af kundekonto og brug af denne
+                                side
+                            </label>
+                        </li>
 
-                    <li>
-                        <button type="submit" className="submit-button">
-                            Opret
-                        </button>
-                    </li>
-                </ul>
+                        <li>
+                            <button type="submit" className="submit-button">
+                                Opret
+                            </button>
+                        </li>
+                    </ul>
 
-                {errorMessage && (
-                    <p className="text-burgundy text-xl">{errorMessage}</p>
-                )}
-                {successMessage && (
-                    <p className="text-green-tea text-xl">{successMessage}</p>
-                )}
-            </form>
+                    {errorMessage && (
+                        <p className="text-burgundy text-xl">{errorMessage}</p>
+                    )}
+                    {successMessage && (
+                        <p className="text-green-tea text-xl">
+                            {successMessage}
+                        </p>
+                    )}
+                </form>
 
-            <Hr className="mt-12" />
-            <DonationBanners />
-        </main>
+                <Hr className="mt-12" />
+                <DonationBanners />
+            </main>
+        )
     );
 };
 

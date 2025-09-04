@@ -71,3 +71,41 @@ export const getProducts = async ({
         user: product.user,
     }));
 };
+
+export const createProduct = async ({
+    name,
+    image,
+    description,
+    price,
+    slug,
+    categoryId,
+    userId,
+}: {
+    name: string;
+    image: string;
+    description: string;
+    price: number;
+    slug: string;
+    categoryId: number;
+    userId: number;
+}) => {
+    try {
+        const product = await prisma.product.create({
+            data: {
+                name,
+                image,
+                description,
+                price,
+                slug,
+                categoryId,
+                userId,
+            },
+        });
+
+        if (!product) throw new Error("Fejl ved oprettelse af annonce");
+
+        return product;
+    } catch (error) {
+        throw new Error("Fejl ved oprettelse af annonce");
+    }
+};

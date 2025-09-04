@@ -6,7 +6,7 @@ import Link from "next/link";
 export const ProductItem = ({ product }: { product: ProductType }) => {
     return (
         <article className="group cursor-pointer flex flex-col gap-2">
-            <Link href={`/product?slug=${product.slug}`}>
+            <Link href={`/product?id=${product.id}`}>
                 <div className="relative min-w-52 aspect-square">
                     <Image
                         src={product.image || "./images/placeholder.png"}

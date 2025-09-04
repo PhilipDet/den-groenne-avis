@@ -18,7 +18,7 @@ export const PickedProducts = () => {
                             key={product.id}
                             className="group relative overflow-hidden min-w-[150px]"
                         >
-                            <Link href={`/product?slug=${product.slug}`}>
+                            <Link href={`/product?id=${product.id}`}>
                                 <Image
                                     className="w-full aspect-square object-cover"
                                     src={

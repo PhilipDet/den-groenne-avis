@@ -5,8 +5,6 @@ import { handleError } from "@/lib/utils";
 export const POST = async (req: NextRequest): Promise<NextResponse> => {
     const body = await req.json();
 
-    console.log("body:", body);
-
     try {
         const result = await createUser(body);
 

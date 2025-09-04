@@ -6,6 +6,8 @@ export type UserType = {
     zipcode: number;
     city: string;
     email: string;
+    hasNewsLetter?: boolean;
+    hasNotification?: boolean;
 };
 
 export type AuthContextType = {
@@ -25,6 +27,7 @@ export type CategoryType = {
     id: number;
     name: string;
     slug: string;
+    image: string;
 };
 
 export type ProductType = {

@@ -53,7 +53,9 @@ const MyAdsPage = () => {
                             <div className="flex-1 flex flex-col gap-7">
                                 <ul className="flex gap-2 flex-col md:flex-row justify-between bg-dark-green p-2 text-white text-2xl font-light">
                                     <li>{product.name}</li>
-                                    <li>Pris {formatPrice(product.price)}</li>
+                                    <li>
+                                        Pris {formatPrice(product.price || 0)}
+                                    </li>
                                 </ul>
                                 <p>{product.description}</p>
                             </div>
@@ -62,6 +64,7 @@ const MyAdsPage = () => {
                                 alt={product.name}
                                 width={500}
                                 height={500}
+                                quality={60}
                                 className="w-32 aspect-square object-cover"
                             />
                         </div>

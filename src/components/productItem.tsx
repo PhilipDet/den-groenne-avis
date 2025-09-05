@@ -13,6 +13,7 @@ export const ProductItem = ({ product }: { product: ProductType }) => {
                         alt={product.name}
                         width={300}
                         height={300}
+                        quality={70}
                         className="w-full h-full object-cover aspect-square"
                     />
                     <div
@@ -22,7 +23,7 @@ export const ProductItem = ({ product }: { product: ProductType }) => {
                         )}
                     >
                         <span className="w-full bg-dark-green/50 text-white text-xl py-2 px-3">
-                            Pris: {formatPrice(product.price)}
+                            Pris: {formatPrice(product.price || 0)}
                         </span>
                     </div>
                 </div>

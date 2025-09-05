@@ -10,39 +10,55 @@ export const PopularCategories = () => {
         <>
             <h2 className="heading-2">Populære Kategorier</h2>
             <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-                {loading ? (
-                    <div>Loading...</div>
-                ) : (
-                    categories.map((category) => (
-                        <li
-                            key={category.id}
-                            className="group relative overflow-hidden min-w-[150px]"
-                        >
-                            <Link href={`/products?category=${category.slug}`}>
-                                <Image
-                                    className="w-full aspect-square object-cover"
-                                    src={
-                                        category.slug
-                                            ? category.image
-                                            : "./images/product_placeholder.png"
-                                    }
-                                    alt={category.name}
-                                    width={300}
-                                    height={300}
-                                />
+                {loading
+                    ? Array.from({ length: 6 }).map((_, index) => (
+                          <li
+                              key={index}
+                              className="min-w-[150px] animate-pulse bg-muted-background aspect-square"
+                          >
+                              <Image
+                                  className="w-full aspect-square object-cover"
+                                  src="/images/placeholder.png"
+                                  alt="Placeholder"
+                                  width={300}
+                                  height={300}
+                                  quality={70}
+                              />
+                          </li>
+                      ))
+                    : categories.map((category) => (
+                          <li
+                              key={category.id}
+                              className="group relative overflow-hidden min-w-[150px]"
+                          >
+                              <Link
+                                  href={`/products?category=${category.slug}`}
+                              >
+                                  <Image
+                                      className="w-full aspect-square object-cover"
+                                      src={
+                                          category.slug && category.image
+                                              ? category.image
+                                              : "./images/product_placeholder.png"
+                                      }
+                                      alt={category.name}
+                                      width={300}
+                                      height={300}
+                                      quality={70}
+                                      priority
+                                  />
 
-                                <span
-                                    className={cn(
-                                        "cursor-pointer absolute inset-x-0 top-0 px-2 py-2 text-white text-sm text-center bg-green-tea/75",
-                                        "-translate-y-10 opacity-100 transition group-hover:translate-y-0 group-hover:opacity-100 z-20"
-                                    )}
-                                >
-                                    {category.name}
-                                </span>
-                            </Link>
-                        </li>
-                    ))
-                )}
+                                  <span
+                                      className={cn(
+                                          "cursor-pointer absolute inset-x-0 top-0 px-2 py-2 text-white text-sm text-center bg-green-tea/75",
+                                          "-translate-y-10 opacity-100 transition group-hover:translate-y-0 group-hover:opacity-100 z-20"
+                                      )}
+                                  >
+                                      {category.name}
+                                  </span>
+                              </Link>
+                          </li>
+                      ))}
             </ul>
         </>
     );

@@ -93,6 +93,7 @@ const ProductPage = () => {
                                     }
                                     alt={product.name}
                                     width={1200}
+                                    quality={80}
                                     height={1200}
                                 />
 
@@ -106,7 +107,7 @@ const ProductPage = () => {
                                 </div>
 
                                 <span className="text-xl font-medium">
-                                    Pris: {formatPrice(product.price)}
+                                    Pris: {formatPrice(product.price || 0)}
                                 </span>
                             </article>
                         )}
@@ -178,10 +179,10 @@ const ProductPage = () => {
                                                         "text-end"
                                                 )}
                                             >
-                                                {comment.user.id ===
+                                                {comment?.user?.id ===
                                                 product?.user?.id
-                                                    ? `${comment.user.firstname} (sælger)`
-                                                    : comment.user.firstname}
+                                                    ? `${comment?.user?.firstname} (sælger)`
+                                                    : comment?.user?.firstname}
                                             </span>
                                             <article
                                                 className={cn(
@@ -190,7 +191,7 @@ const ProductPage = () => {
                                             >
                                                 <p>{comment.comment}</p>
                                             </article>
-                                            {user.id === comment.user.id && (
+                                            {user.id === comment?.user?.id && (
                                                 <button
                                                     onClick={() => {
                                                         handleCommentDelete(

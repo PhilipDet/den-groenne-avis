@@ -27,7 +27,7 @@ const DashboardPage = () => {
             setLastName(user.lastname || "");
             setAddress(user.address || "");
             setCity(user.city || "");
-            setZipcode(user.zipcode.toString() || "");
+            setZipcode(user?.zipcode?.toString() || "");
             setEmail(user.email || "");
             setNews(user.hasNewsletter || false);
             setNotification(user.hasNotification || false);

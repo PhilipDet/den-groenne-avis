@@ -16,7 +16,15 @@ export const Navbar = () => {
         <nav className="w-full bg-background py-6 px-16">
             <ul className="flex items-stretch gap-8">
                 <li className="mr-auto">
-                    <Image src={Logo} alt="Logo" width={255} height={50} />
+                    <Link href="/">
+                        <Image
+                            src={Logo}
+                            alt="Logo"
+                            width={255}
+                            height={50}
+                            quality={80}
+                        />
+                    </Link>
                 </li>
                 <li className="flex items-center">
                     <select

@@ -6,12 +6,30 @@ import { handleError } from "@/lib/utils";
 export const getProduct = async (id: number) => {
     const product = await prisma.product.findUnique({
         where: { id },
-        include: {
-            category: true,
-            user: true,
+        select: {
+            id: true,
+            name: true,
+            image: true,
+            description: true,
+            price: true,
+
+            user: {
+                select: {
+                    id: true,
+                },
+            },
+
             Comment: {
-                include: {
-                    user: true,
+                select: {
+                    id: true,
+                    comment: true,
+                    userId: true,
+                    user: {
+                        select: {
+                            id: true,
+                            firstname: true,
+                        },
+                    },
                 },
             },
         },
@@ -25,8 +43,6 @@ export const getProduct = async (id: number) => {
         image: product.image,
         description: product.description,
         price: product.price.toNumber(),
-        slug: product.slug,
-        category: product.category,
         user: product.user,
         comments: product.Comment,
     };

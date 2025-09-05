@@ -105,7 +105,14 @@ const CreateAdPage = () => {
                     />
 
                     <Select
-                        selectedCategory={selectedCategory}
+                        selectedCategory={
+                            selectedCategory
+                                ? {
+                                      ...selectedCategory,
+                                      image: selectedCategory.image ?? "",
+                                  }
+                                : null
+                        }
                         items={categories}
                         loading={loading}
                         onSelect={handleSelect}

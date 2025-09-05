@@ -25,8 +25,6 @@ export const Footer = () => {
 
         const result = await subscribeToNewsletter(email);
 
-        console.log(result);
-
         if (!result) {
             setErrorMessage(result);
             setSuccessMessage("");

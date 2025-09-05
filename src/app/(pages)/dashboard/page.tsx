@@ -170,13 +170,9 @@ const DashboardPage = () => {
                                                 name="news"
                                                 id="news"
                                                 checked={news}
-                                                onChange={(e) => {
-                                                    console.log(
-                                                        "News checkbox changed:",
-                                                        e.target.checked
-                                                    );
-                                                    setNews(e.target.checked);
-                                                }}
+                                                onChange={(e) =>
+                                                    setNews(e.target.checked)
+                                                }
                                                 className="peer opacity-0 w-6 h-6 absolute cursor-pointer"
                                             />
                                             <div className="absolute inset-0 bg-background transition-colors border-3 border-dark-green peer-checked:bg-dark-green"></div>

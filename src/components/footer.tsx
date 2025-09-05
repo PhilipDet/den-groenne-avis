@@ -1,10 +1,39 @@
 "use client";
 
+import { subscribeToNewsletter } from "@/services/newsletter";
 import Link from "next/link";
+import { useState } from "react";
+import { validation } from "@/lib/validation";
 
 export const Footer = () => {
-    const handleNewsletterSignup = () => {
-        // Handle newsletter signup logic here
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [successMessage, setSuccessMessage] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+
+    const handleNewsletterSignup = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
+        e.preventDefault();
+
+        const emailError: boolean | string = validation.email(email);
+
+        if (typeof emailError === "string") {
+            setErrorMessage(emailError);
+            setSuccessMessage("");
+            return;
+        }
+
+        const result = await subscribeToNewsletter(email);
+
+        console.log(result);
+
+        if (!result) {
+            setErrorMessage(result);
+            setSuccessMessage("");
+        } else {
+            setSuccessMessage("Du er nu tilmeldt nyhedsbrevet!");
+            setErrorMessage("");
+        }
     };
 
     return (
@@ -20,13 +49,16 @@ export const Footer = () => {
                         </li>
                         <li>
                             <form
-                                onSubmit={() => handleNewsletterSignup()}
+                                onSubmit={(e) => handleNewsletterSignup(e)}
                                 className="flex"
+                                onChange={() => setErrorMessage("")}
                             >
                                 <input
                                     type="text"
                                     placeholder="Indtast din email"
                                     className="border-none bg-white text-2xl py-2 px-4 text-foreground"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <button
                                     type="submit"
@@ -35,6 +67,12 @@ export const Footer = () => {
                                     Tilmeld
                                 </button>
                             </form>
+                            {errorMessage && (
+                                <p className="text-burgundy">{errorMessage}</p>
+                            )}
+                            {successMessage && (
+                                <p className="text-black">{successMessage}</p>
+                            )}
                         </li>
                     </ul>
                 </li>
@@ -48,10 +86,10 @@ export const Footer = () => {
                     </ul>
                 </li>
                 <li className="footer-container">
-                    <span className="footer-header">FN's Verdensmål</span>
+                    <span className="footer-header">FN&apos;s Verdensmål</span>
                     <ul className="footer-paragraph flex flex-col gap-5">
                         <li>
-                            Vi støtter på organisatorisk plan op om FN's
+                            Vi støtter på organisatorisk plan op om FN&apos;s
                             verdensmål og har derfor besluttet at en del af
                             overskuddet går direkte til verdensmål nr. 13;
                             Klimahandling

@@ -6,7 +6,7 @@ export type UserType = {
     zipcode: number;
     city: string;
     email: string;
-    hasNewsLetter?: boolean;
+    hasNewsletter?: boolean;
     hasNotification?: boolean;
 };
 
@@ -14,6 +14,7 @@ export type AuthContextType = {
     user: UserType | null;
     loadingUser: boolean;
     logout: () => void;
+    fetchUser: () => Promise<void>;
 };
 
 export type CategoryContextType = {

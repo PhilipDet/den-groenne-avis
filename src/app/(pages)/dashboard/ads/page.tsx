@@ -44,6 +44,8 @@ const MyAdsPage = () => {
         <main className="flex flex-col gap-12">
             {loadingProduct ? (
                 <p>Loader produkter...</p>
+            ) : products.length <= 0 ? (
+                <p>Du har ingen annoncer</p>
             ) : (
                 products.map((product) => (
                     <article key={product.id} className="flex flex-col gap-2.5">

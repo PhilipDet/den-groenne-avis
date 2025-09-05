@@ -57,7 +57,7 @@ export const useProducts = (
         };
 
         fetchProducts();
-    }, [category, random]);
+    }, [category, random, userId]);
 
     return { products, loadingProduct: loading };
 };

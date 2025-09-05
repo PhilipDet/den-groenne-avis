@@ -3,7 +3,7 @@
 import { useProduct } from "@/hooks/useProduct";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { formatPrice, cn } from "@/lib/utils";
+import { formatPrice, cn, handleError } from "@/lib/utils";
 import { Hr } from "@/components/hr";
 import { useAuth } from "@/context/authContext";
 import { useEffect, useState } from "react";
@@ -59,7 +59,7 @@ const ProductPage = () => {
                 setErrorMessage(null);
             }
         } catch (error) {
-            setErrorMessage("Kunne ikke oprette kommentaren");
+            setErrorMessage(handleError(error));
         }
     };
 
@@ -179,7 +179,7 @@ const ProductPage = () => {
                                                 )}
                                             >
                                                 {comment.user.id ===
-                                                product?.user.id
+                                                product?.user?.id
                                                     ? `${comment.user.firstname} (sælger)`
                                                     : comment.user.firstname}
                                             </span>

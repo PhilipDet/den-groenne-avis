@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Input } from "@/components/input";
-import { validation } from "@/lib/validation";
 import { useEffect, useState } from "react";
 import { Hr } from "@/components/hr";
 import { DonationBanners } from "@/components/donationBanners";
@@ -12,7 +11,7 @@ import { useAuth } from "@/context/authContext";
 
 const LoginPage = () => {
     const router = useRouter();
-    const { user, loadingUser } = useAuth();
+    const { user, loadingUser, fetchUser } = useAuth();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -48,9 +47,7 @@ const LoginPage = () => {
 
             setSuccessMessage("Bruger logget ind");
 
-            setTimeout(() => {
-                router.push("/");
-            }, 2000);
+            await fetchUser();
         } catch (error: unknown) {
             setErrorMessage(handleError(error));
         }

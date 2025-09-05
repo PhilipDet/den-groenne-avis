@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { generateToken } from "@/lib/auth";
 import { handlePrismaError } from "@/lib/utils";
+import { UserType } from "@/lib/types";
 
 export const getUser = async (id: number) => {
     const result = await prisma.user.findUnique({
@@ -81,6 +82,60 @@ export const createUser = async ({
             switch (prismaError.code) {
                 case "P2002":
                     throw new Error("Email findes allerede");
+                default:
+                    throw new Error("Databasefejl");
+            }
+        } else {
+            throw new Error("Uventet fejl");
+        }
+    }
+};
+
+export const updateUser = async (userId: number, updatedData: UserType) => {
+    try {
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: {
+                firstname: updatedData.firstname,
+                lastname: updatedData.lastname,
+                address: updatedData.address,
+                city: updatedData.city,
+                zipcode: updatedData.zipcode,
+                email: updatedData.email,
+                hasNewsletter: updatedData.hasNewsletter,
+                hasNotification: updatedData.hasNotification,
+            },
+        });
+        return updatedUser;
+    } catch (error) {
+        const prismaError = handlePrismaError(error);
+
+        if (prismaError) {
+            switch (prismaError.code) {
+                case "P2025":
+                    throw new Error("Bruger ikke fundet");
+                default:
+                    throw new Error("Databasefejl");
+            }
+        } else {
+            throw new Error("Uventet fejl");
+        }
+    }
+};
+
+export const deleteUser = async (userId: number) => {
+    try {
+        const deletedUser = await prisma.user.delete({
+            where: { id: userId },
+        });
+        return deletedUser;
+    } catch (error) {
+        const prismaError = handlePrismaError(error);
+
+        if (prismaError) {
+            switch (prismaError.code) {
+                case "P2025":
+                    throw new Error("Bruger ikke fundet");
                 default:
                     throw new Error("Databasefejl");
             }

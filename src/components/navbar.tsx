@@ -5,17 +5,12 @@ import Logo from "@/public/Logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useCategoryContext } from "@/context/categoryContext";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
-    const { categories, loadingCategoryContext } = useCategoryContext();
-
-    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedCategory = categories.find(
-            (category) => category.slug === e.target.value
-        );
-        if (selectedCategory) {
-        }
-    };
+    const { categories, loadingCategoryContext, selectedCategory } =
+        useCategoryContext();
+    const router = useRouter();
 
     return (
         <nav className="w-full bg-background py-6 px-16">
@@ -27,6 +22,14 @@ export const Navbar = () => {
                     <select
                         name="category"
                         className="h-full w-[200px] border-2 border-green-tea bg-muted-background px-3.5"
+                        onChange={(e) =>
+                            router.push(
+                                `/products?category=${
+                                    e.target.value || ""
+                                }&page=1`
+                            )
+                        }
+                        value={selectedCategory || ""}
                     >
                         {loadingCategoryContext ? (
                             <option>Henter...</option>

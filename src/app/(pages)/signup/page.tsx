@@ -12,7 +12,7 @@ import { useAuth } from "@/context/authContext";
 
 const SignupPage = () => {
     const router = useRouter();
-    const { user, loadingUser } = useAuth();
+    const { user, loadingUser, fetchUser } = useAuth();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -87,9 +87,7 @@ const SignupPage = () => {
 
             setSuccessMessage("Bruger oprettet");
 
-            setTimeout(() => {
-                router.push("/dashboard");
-            }, 2000);
+            await fetchUser();
         } catch (error: unknown) {
             setErrorMessage(handleError(error));
         }
